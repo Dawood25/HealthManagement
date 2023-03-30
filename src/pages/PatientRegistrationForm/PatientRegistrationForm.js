@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
 import "./PatientRegistrationForm.css";
+import firebase from "../../firebase";
 
 const PatientRegistrationForm = () => {
   const [formData, setFormData] = useState({
@@ -23,6 +24,16 @@ const PatientRegistrationForm = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    const db = firebase.firestore();
+    db.collection('Patient').add({
+      formData
+    })
+      .then(() => {
+        console.log('Patient added successfully!');
+      })
+      .catch((error) => {
+        console.error('Error adding Patient: ', error);
+      });
     // Do something with the form data, such as submit to a backend API
     console.log(formData);
   };
