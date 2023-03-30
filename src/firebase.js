@@ -5,13 +5,14 @@ import 'firebase/compat/auth';
 
 const firebaseConfig = {
   // Your Firebase config
-  apiKey: process.env.REACT_APP_FIREBASE_API_KEY,
-  authDomain: process.env.REACT_APP_FIREBASE_AUTH_DOMAIN,
-  databaseURL: process.env.REACT_APP_FIREBASE_DATABASE_URL,
-  projectId: process.env.REACT_APP_FIREBASE_PROJECT_ID,
-  storageBucket: process.env.REACT_APP_FIREBASE_STORAGE_BUCKET,
-  messagingSenderId: process.env.REACT_APP_FIREBASE_SENDER_ID,
-  appId: process.env.REACT_APP_FIREBASE_APP_ID 
+  apiKey: "AIzaSyC4vSPek3SkRIsTS1vfV_dtSN6ZAWqzsGQ",
+  authDomain: "healthmanagment-1e53b.firebaseapp.com",
+  databaseURL: "https://healthmanagment-1e53b-default-rtdb.firebaseio.com",
+  projectId: "healthmanagment-1e53b",
+  storageBucket: "healthmanagment-1e53b.appspot.com",
+  messagingSenderId: "674389399536",
+  appId: "1:674389399536:web:01cab825d713cf8e7fef35",
+  measurementId: "G-N2F1W20W6L"
 };
 
 

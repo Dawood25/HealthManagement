@@ -26,7 +26,13 @@ const PatientRegistrationForm = () => {
     event.preventDefault();
     const db = firebase.firestore();
     db.collection('Patient').add({
-      formData
+      firstName: formData["firstName"],
+      lastName: formData["lastName"],
+      email: formData["email"],
+      address: formData["address"],
+      phoneNumber: formData["phoneNumber"],
+      healthCardNo: formData["healthCardNo"],
+      password: formData["password"],
     })
       .then(() => {
         console.log('Patient added successfully!');
@@ -34,6 +40,7 @@ const PatientRegistrationForm = () => {
       .catch((error) => {
         console.error('Error adding Patient: ', error);
       });
+      
     // Do something with the form data, such as submit to a backend API
     console.log(formData);
   };
