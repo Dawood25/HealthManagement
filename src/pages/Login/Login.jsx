@@ -1,6 +1,8 @@
 import React from "react";
 import { useState } from "react";
 
+import { Link } from "react-router-dom";
+
 export const LoginForm = (props) => {
   const user = props.user;
   const [userDetails, setUserDetails] = useState({ email: "", password: "" });
@@ -22,36 +24,41 @@ export const LoginForm = (props) => {
   };
 
   return (
-    <form>
-      <div class="form-group">
-        <label for="email">Email address</label>
+    <form className="p-3 bg-light shadow border rounded">
+      <div className="form-group">
+        <label htmlFor="email">Email address</label>
         <input
           type="email"
-          class="form-control"
+          className="form-control"
           id="email"
           aria-describedby="emailHelp"
           placeholder="Enter email"
           onChange={onChangeHandler}
           value={userDetails.email}
         />
-        <small id="emailHelp" class="form-text text-muted">
+        <small id="emailHelp" className="form-text text-muted">
           We'll never share your email with anyone else.
         </small>
       </div>
-      <div class="form-group">
-        <label for="password">Password</label>
+      <div className="form-group">
+        <label htmlFor="password">Password</label>
         <input
           type="password"
-          class="form-control"
+          className="form-control"
           id="password"
           placeholder="Password"
           onChange={onChangeHandler}
           value={userDetails.password}
         />
       </div>
-      <button type="submit" class="btn btn-primary">
-        Submit
-      </button>
+      <div className="d-flex justify-content-between align-items-center">
+        <button type="submit" className="btn btn-primary">
+          Submit
+        </button>
+        <Link to="/patient_reg" className="text-primary">
+          Register
+        </Link>
+      </div>
     </form>
   );
 };
