@@ -1,41 +1,34 @@
 import React from "react";
+import { Navbar as BootstrapNavbar, Nav } from "react-bootstrap";
 
-export const Navbar = (props) => {
+
+export const Navbar = () => {
   return (
-    <nav className="navbar navbar-expand-lg navbar-light bg-light">
-      <a className="navbar-brand" href="#">
+    <BootstrapNavbar
+      collapseOnSelect
+      expand="lg"
+      bg="light"
+      variant="light"
+      className="navbar p-2 border shadow"
+    >
+      <BootstrapNavbar.Brand href="/">
         Health Management System
-      </a>
-      <button
-        className="navbar-toggler"
-        type="button"
-        data-toggle="collapse"
-        data-target="#navbarNav"
-        aria-controls="navbarNav"
-        aria-expanded="false"
-        aria-label="Toggle navigation"
-      >
-        <span className="navbar-toggler-icon"></span>
-      </button>
-      <div className="collapse navbar-collapse" id="navbarNav">
-        <ul className="navbar-nav">
-          <li className="nav-item active">
-            <a className="nav-link" href="#">
-              Home
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              About us
-            </a>
-          </li>
-          <li className="nav-item">
-            <a className="nav-link" href="#">
-              Our Values
-            </a>
-          </li>
-        </ul>
-      </div>
-    </nav>
+      </BootstrapNavbar.Brand>
+      <BootstrapNavbar.Toggle aria-controls="responsive-navbar-nav" />
+      <BootstrapNavbar.Collapse id="responsive-navbar-nav">
+        <Nav className="ml-auto">
+          <Nav.Link href="/" className="nav-link">
+            Home
+          </Nav.Link>
+          <Nav.Link href="/about" className="nav-link">
+            About Us
+          </Nav.Link>
+          <Nav.Link href="/values" className="nav-link">
+            Our Values
+          </Nav.Link>
+        </Nav>
+      </BootstrapNavbar.Collapse>
+    </BootstrapNavbar>
   );
 };
+
