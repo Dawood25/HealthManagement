@@ -8,6 +8,7 @@ import { Navbar } from './component/Navbar';
 import Home from './pages/Home/Home'
 import PatientRegistrationForm from "./pages/PatientRegistrationForm/PatientRegistrationForm";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Staff } from "./pages/staff/Staff";
 /*
 
 <Home/>
@@ -21,6 +22,7 @@ function App() {
           <Route path="/">
             <Route index element={<Home />} />  
             <Route path="patient_reg" element={<PatientRegistrationForm />} />
+            <Route path="staff" element={<Staff />} />
           </Route>
         </Switch>
      </Router>
