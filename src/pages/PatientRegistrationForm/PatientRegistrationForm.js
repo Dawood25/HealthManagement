@@ -1,9 +1,11 @@
 import React, { useState } from "react";
 import { Form, Button, Container, Row, Col } from "react-bootstrap";
+import { useNavigate  } from "react-router-dom";
 import "./PatientRegistrationForm.css";
 import firebase from "../../firebase";
 
 const PatientRegistrationForm = () => {
+  const history = useNavigate();
   const [formData, setFormData] = useState({
     firstName: "",
     lastName: "",
@@ -44,6 +46,8 @@ const PatientRegistrationForm = () => {
     })
       .then(() => {
         console.log('Patient added successfully!');
+        history("/patient");
+        
       })
       .catch((error) => {
         console.error('Error adding Patient: ', error);
