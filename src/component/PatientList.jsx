@@ -2,7 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
 import { useLocation } from "react-router-dom";
 import firebase from "../firebase";
-import "firebase/firestore";
+
 const db = firebase.firestore();
 const PatientsList = () => {
   const location = useLocation();
