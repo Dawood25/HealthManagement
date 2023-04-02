@@ -13,6 +13,10 @@ const PatientRegistrationForm = () => {
     healthCardNo: "",
     password: "",
     confirmPassword: "",
+    authorized:false,
+    labTest: [],
+    prescribtion:[],
+
   });
 
   const handleChange = (event) => {
@@ -33,6 +37,10 @@ const PatientRegistrationForm = () => {
       phoneNumber: formData["phoneNumber"],
       healthCardNo: formData["healthCardNo"],
       password: formData["password"],
+      authorized:false,
+      labTest: [],
+      prescribtion:[],
+      doctorID:null,
     })
       .then(() => {
         console.log('Patient added successfully!');

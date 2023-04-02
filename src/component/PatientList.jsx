@@ -9,12 +9,22 @@ const PatientsList = () => {
   const path = location.pathname;
   const [patients, setPatients] = useState([]);
   const handleVerifyClick = (patient) => {
-    // update patient data in firebase
-    db.collection("Patient").doc(patient.id).update({
-      authorized: true,
+    // Update patient data in Firebase
+    const patientRef = db.collection("Patient").doc(patient.id);
+    
+    patientRef.get().then((doc) => {
+      if (doc.exists) {
+        const currentAuthorizedValue = doc.data().authorized;
+        patientRef.update({
+          authorized: !currentAuthorizedValue,
+        });
+      } else {
+        console.log("Patient document does not exist");
+      }
+    }).catch((error) => {
+      console.log("Error getting patient document:", error);
     });
   };
-
   useEffect(() => {
     const unsubscribe = db.collection("Patient").onSnapshot((snapshot) => {
       const patientsData = snapshot.docs.map((doc) => ({
@@ -52,11 +62,11 @@ const PatientsList = () => {
                   {path === "/staff" && (
                     <td>
                       {patient.authorized === false ? (
-                        <Button onClick={() => handleVerifyClick(patient)}>
+                        <Button variant="success" onClick={() => handleVerifyClick(patient)}>
                           Verify
                         </Button>
                       ) : (
-                        <Button disabled>Verified</Button>
+                        <Button variant="fail" onClick={()=>handleVerifyClick(patient)}>Verified</Button>
                       )}
                     </td>
                   )}
