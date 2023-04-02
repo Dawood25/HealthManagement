@@ -4,18 +4,20 @@ import { useState } from "react";
 import { Category } from "../../component/Category";
 import "./Login.css";
 import firebase from "../../firebase";
+import { useNavigate } from "react-router-dom";
+
 
 const verifyCredentials = async (user,email, password) => {
-  const db = firebase.firestore();
+   const db = firebase.firestore();
   const usersRef = db.collection(user);
   const query = usersRef.where("email", "==", email).where("password", "==", password);
   const querySnapshot = await query.get();
 
-  if (!querySnapshot.empty) {
+  
+  if (!querySnapshot.exists) {
 
     // User exists with the given email and password
-    const user = querySnapshot.docs[0].data();
-    return true;
+    return querySnapshot.docs[0].data();
   } else {
     // No user exists with the given email and password
     console.log("Invalid email or password");
@@ -25,7 +27,9 @@ const verifyCredentials = async (user,email, password) => {
 
 
 const Login = () => {
-  const [category, setCategory] = useState("");
+  const navigate = useNavigate();
+  const [category, setCategory] = useState("Patient");
+  const [data,setData] = useState(null);
   const [isLoggedIn,setIsLoggedIn] = useState(false)
   const [userDetails, setUserDetails] = useState({ email: "", password: "" });
   const onChangeCategoryHandler = (e) => {
@@ -33,7 +37,7 @@ const Login = () => {
   };
 
     const onChangeLoginFormHandler = (event) => {
-    console.log(event.target.type)
+   
     
     let userDetail = {
       email: userDetails.email,
@@ -51,10 +55,15 @@ const Login = () => {
   };
 
   const onSubmit = (e) => {
-   
-   if(verifyCredentials(category,userDetails['email'],userDetails['password'])){
-    setIsLoggedIn(true);
-   }
+
+    
+   verifyCredentials(category,userDetails['email'],userDetails['password'])
+  .then((data) => {
+  console.log(data);
+  setIsLoggedIn(true)
+   setData(data);
+  })  
+  navigate("/staff",{state:{data:data,isLoggedIn:isLoggedIn}})
   }
   return (
     <>
