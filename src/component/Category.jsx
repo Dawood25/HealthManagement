@@ -7,8 +7,8 @@ export const Category = (props) => {
   const onClickHandler = (event) => {
     event.preventDefault();
     setCategory(event.target.text);
-    user.category = event.target.text;
-    props.onChangeHandler(user);
+
+    props.onChangeHandler(event);
   };
   return (
     <div className="dropdown">
@@ -20,7 +20,7 @@ export const Category = (props) => {
         aria-haspopup="true"
         aria-expanded="false"
       >
-        {category == "" ? "Select Category" : category}
+        {category == "" ? "Patient" : category}
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
         <a className="dropdown-item" href="#" onClick={onClickHandler}>
