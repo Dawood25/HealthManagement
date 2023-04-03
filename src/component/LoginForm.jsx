@@ -7,7 +7,7 @@ export const LoginForm = (props) => {
 
 
   return (
-    <form onSubmit={(e)=>{props.onSubmit(e)}} className="p-3 bg-light shadow border rounded">
+    <form  className="p-3 bg-light shadow border rounded">
       <div className="form-group">
         <label htmlFor="email">Email address</label>
         <input
@@ -35,7 +35,7 @@ export const LoginForm = (props) => {
         />
       </div>
       <div className="d-flex justify-content-between align-items-center">
-        <button type="submit" className="btn btn-primary">
+        <button  onClick={(e)=>{props.onSubmit(e)}} className="btn btn-primary">
           Submit
         </button>
         <Link to="/patient_reg" className="text-primary">

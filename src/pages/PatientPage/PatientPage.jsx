@@ -1,12 +1,16 @@
-import React, { useState } from "react";
+import React, { useState,useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import ShowPrescription from "../../component/ShowPrescription";
 import ShowLabTest from "../../component/ShowLabTest";
 import { useParams } from "react-router-dom";
 import AddLabTest from "../../component/AddLabTest";
 import AddPrescription from "../../component/AddPrescription";
+import { useLocation } from 'react-router-dom';
+import { useNavigate } from "react-router-dom";
 
 function PatientPage(props) {
+
+
   const [showPrescriptions, setShowPrescriptions] = useState(false);
   const [showLabTests, setShowLabTests] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
