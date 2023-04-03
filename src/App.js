@@ -25,7 +25,7 @@ function App() {
             <Route index element={<Home />} />  
             <Route path="patient_reg" element={<PatientRegistrationForm />} />
             <Route path="staff" element={<Staff />} />
-            <Route path="patient/:id/:category" element={<PatientPage />} />
+            <Route path="patient" element={<PatientPage />} />
             <Route path="doctor" element={<DoctorPage />} />
           </Route>
         </Switch>

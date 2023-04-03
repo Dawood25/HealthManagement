@@ -71,7 +71,10 @@ const PatientsList = () => {
                       {patient.firstName}
                     </a>
                      */}
-                    <Link to={`/patient/${patient.id}` + path}>
+                    <Link
+                      to="/patient"
+                      state={{ category: path, id: patient.id }}
+                    >
                       {patient.firstName}
                     </Link>
                   </td>

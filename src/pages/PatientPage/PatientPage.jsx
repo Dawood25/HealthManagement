@@ -1,21 +1,20 @@
-import React, { useState,useEffect } from "react";
+import React, { useState, useEffect } from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import ShowPrescription from "../../component/ShowPrescription";
 import ShowLabTest from "../../component/ShowLabTest";
 import { useParams } from "react-router-dom";
 import AddLabTest from "../../component/AddLabTest";
 import AddPrescription from "../../component/AddPrescription";
-import { useLocation } from 'react-router-dom';
-import { useNavigate } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 
 function PatientPage(props) {
-
-
   const [showPrescriptions, setShowPrescriptions] = useState(false);
   const [showLabTests, setShowLabTests] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const { id, category } = useParams();
-  const isDoctor = category == null ? false : category.includes("doctor");
+  const { id, category, data } = useLocation().state;
+  console.log(useLocation().state);
+  console.log(useParams());
+  const isDoctor = category == null ? false : category.includes("Doctor");
   const isStaff = category == null ? false : category.includes("staff");
 
   const [prescriptions, setPrescriptions] = useState([

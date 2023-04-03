@@ -1,22 +1,21 @@
 import React from "react";
 import { LoginForm } from "../../component/LoginForm";
-import { useState,useEffect } from "react";
+import { useState, useEffect } from "react";
 import { Category } from "../../component/Category";
 import "./Login.css";
 import firebase from "../../firebase";
 import { useNavigate } from "react-router-dom";
 
-
-
 const Login = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("Patient");
-  const [loggedIn,setIsLoggedIn] = useState(false)
+  const [loggedIn, setIsLoggedIn] = useState(false);
   const [doctorData, setDoctorData] = useState(null);
   const [userDetails, setUserDetails] = useState({ email: "", password: "" });
 
   useEffect(() => {
     const fetchDoctorData = async () => {
+      console.log("fetch doctor data method called");
       const doctorRef = await firebase
         .firestore()
         .collection(category)
@@ -25,7 +24,11 @@ const Login = () => {
         .get();
 
       if (!doctorRef.empty) {
-        setDoctorData(doctorRef.docs[0]);
+        console.log(doctorRef.docs[0].id);
+        setDoctorData({
+          id: doctorRef.docs[0].id,
+          data: doctorRef.docs[0].data(),
+        });
       } else {
         setDoctorData(null);
       }
@@ -41,8 +44,6 @@ const Login = () => {
   };
 
   const onChangeLoginFormHandler = (event) => {
-
-
     let userDetail = {
       email: userDetails.email,
       password: userDetails.password,
@@ -55,38 +56,42 @@ const Login = () => {
     }
 
     setUserDetails(userDetail);
-
   };
 
   const onSubmit = (e) => {
     e.preventDefault();
 
     if (doctorData) {
-      console.log(doctorData)
-      navigate(`/${category}`)
-
+      console.log(doctorData);
+      navigate(`/${category}`, {
+        state: { id: doctorData.id, data: doctorData.data, category: category },
+      });
     } else {
       alert("Invalid email or password for Doctor account.");
     }
-   
-      
-
-  }
+  };
   return (
-    <> {
-      <div className="container login-container">
-        <div className="row justify-content-center">
-          <div className="col-lg-6 col-md-8 col-sm-10">
-            <Category user={category} onChangeHandler={onChangeCategoryHandler} />
-            <div className="my-4">
-              <LoginForm userDetail={userDetails} onSubmit={onSubmit} onChangeHandler={onChangeLoginFormHandler} />
+    <>
+      {" "}
+      {
+        <div className="container login-container">
+          <div className="row justify-content-center">
+            <div className="col-lg-6 col-md-8 col-sm-10">
+              <Category
+                user={category}
+                onChangeHandler={onChangeCategoryHandler}
+              />
+              <div className="my-4">
+                <LoginForm
+                  userDetail={userDetails}
+                  onSubmit={onSubmit}
+                  onChangeHandler={onChangeLoginFormHandler}
+                />
+              </div>
             </div>
           </div>
         </div>
-      </div>
-
-    }
-      
+      }
     </>
   );
 };
