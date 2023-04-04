@@ -33,8 +33,8 @@ const ShowLabTest = (props) => {
                 {labTests.map((labTest, index) => (
                   <tr key={index}>
                     <td>{labTest.testId}</td>
-                    <td>{labTest.testName}</td>
-                    <td>{labTest.testResult}</td>
+                    <td>{labTest.test.testName}</td>
+                    <td>{labTest.test.testResult}</td>
                   </tr>
                 ))}
               </tbody>

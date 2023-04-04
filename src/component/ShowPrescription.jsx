@@ -29,7 +29,6 @@ const ShowPrescription = (props) => {
                 <tr key={index}>
                   <td>{prescription.date}</td>
                   <td>{prescription.medicine}</td>
-                  <td>{prescription.doctorId}</td>
                 </tr>
               ))}
             </tbody>

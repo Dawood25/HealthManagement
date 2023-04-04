@@ -4,7 +4,13 @@ import { useLocation, useNavigate, useParams } from "react-router-dom";
 import firebase from "../firebase";
 import { Link } from "react-router-dom";
 const db = firebase.firestore();
-const PatientsList = () => {
+
+const PatientsList = ({handleVerifyClick,path,patients}) => {
+  
+  
+  
+
+  /*
   const location = useLocation();
   const navigate = useNavigate();
   const path = location.pathname;
@@ -47,6 +53,7 @@ const PatientsList = () => {
     console.log("patient id is " + id);
     navigate("/patient?id=" + id, { state: [id, path] });
   }
+  */
   return (
     <Container>
       <Row>
@@ -59,7 +66,7 @@ const PatientsList = () => {
                 <th>Name</th>
                 <th>healthCardNo</th>
                 <th>phoneNumber</th>
-                {path === "/staff" && <th>Verify</th>}
+                {path === "Staff" && <th>Verify</th>}
               </tr>
             </thead>
             <tbody>
@@ -73,14 +80,14 @@ const PatientsList = () => {
                      */}
                     <Link
                       to="/patient"
-                      state={{ category: path, id: patient.id }}
+                      state={{ category: path, id: patient.id, data:patient.data }}
                     >
                       {patient.firstName}
                     </Link>
                   </td>
                   <td>{patient.healthCardNo}</td>
                   <td>{patient.phoneNumber}</td>
-                  {path === "/staff" && (
+                  {path === "/Staff" && (
                     <td>
                       {patient.authorized === false ? (
                         <Button
