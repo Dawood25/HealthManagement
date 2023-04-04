@@ -2,19 +2,19 @@ import React, { useState} from "react";
 import { Row, Col, Container } from "react-bootstrap";
 import ShowPrescription from "../../component/ShowPrescription";
 import ShowLabTest from "../../component/ShowLabTest";
-import { useParams } from "react-router-dom";
 import AddLabTest from "../../component/AddLabTest";
-import AddPrescription from "../../component/AddPrescription";
 import AddItemsComponet from "../../component/AddItemComponet";
 import { useLocation } from "react-router-dom";
+import firebase from "../../firebase";
 
 function PatientPage(props) {
+  const db = firebase.firestore();
+  console.log("Patient Page")
   const [showPrescriptions, setShowPrescriptions] = useState(false);
   const [showLabTests, setShowLabTests] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
   const { id, category, data } = useLocation().state;
-  console.log(data);
- 
+  
   const isDoctor = category == null ? false : category.includes("Doctor");
   const isStaff = category == null ? false : category.includes("staff");
 
@@ -29,17 +29,32 @@ function PatientPage(props) {
     setShowLabTests(!showLabTests);
   };
 
-  const handleAddPrescription = (event) => {
-    event.preventDefault();
-    const date = event.target.date.value;
-    const medicine = event.target.medicine.value;
-    const doctorId = event.target.doctorId.value;
+  const handleAddPrescription = (prescribtion) => {
+    console.log("handleAddPrescrtpio")
+       console.log(prescribtion)
     setPrescriptions([
-      ...prescriptions,
-      { date: date ,medicine: medicine },
+      ...prescribtion,   
     ]);
-    event.target.reset();
+
+    console.log(prescriptions);
+  
   };
+
+  const onSubmitPrescribtion = () => {
+    console.log("onSubmitPrescribtion");
+    db.collection('Patient')
+    .doc(id)
+    .update({
+      "prescribtion": prescriptions
+    })
+    .then(() => {
+      console.log("Prescription updated successfully");
+    })
+    .catch((error) => {
+      console.log("Error updating prescription: ", error);
+    });
+
+  }
 
   const handleAddLabTest = (event) => {
     event.preventDefault();
@@ -67,7 +82,7 @@ function PatientPage(props) {
             setIsLoggedIn={setIsLoggedIn}
           />
           {isDoctor && (
-            <AddPrescription handleAddPrescription={handleAddPrescription} />
+            <AddItemsComponet onSelect = {handleAddPrescription} items={prescriptions} onSubmit={onSubmitPrescribtion} />
           )}
         </Col>
         <Col lg={6}>

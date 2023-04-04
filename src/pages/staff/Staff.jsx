@@ -5,9 +5,6 @@ import firebase from "../../firebase";
 import { useLocation} from "react-router-dom";
 
 
-
-
-
 export const Staff = (props) => {
  
   const db = firebase.firestore();
@@ -38,7 +35,7 @@ export const Staff = (props) => {
     const unsubscribe = db.collection("Patient").onSnapshot((snapshot) => {
       const patientsData = snapshot.docs.map((doc) => ({
         id: doc.id,
-        ...doc.data(),
+        data:doc.data(),
       }));
       console.log(JSON.stringify(patientsData));
       setPatients(patientsData);
