@@ -8,6 +8,8 @@ const db = firebase.firestore();
 const PatientsList = ({ handleVerifyClick, path, patients }) => {
   console.log(patients);
 
+  console.log(path);
+
   return (
     <Container>
       <Row>
@@ -41,9 +43,9 @@ const PatientsList = ({ handleVerifyClick, path, patients }) => {
                   </td>
                   <td>{patient.data.healthCardNo}</td>
                   <td>{patient.data.phoneNumber}</td>
-                  {path === "/Staff" && (
+                  {path === "Staff" && (
                     <td>
-                      {patient.authorized === false ? (
+                      {patient.data.authorized === false ? (
                         <Button
                           variant="success"
                           onClick={() => handleVerifyClick(patient)}
