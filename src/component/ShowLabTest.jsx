@@ -13,6 +13,11 @@ const ShowLabTest = (props) => {
     props.setShowLabTests(flag);
   };
 
+  const handleDeleteLabTest=(event)=>{
+    event.preventDefault();
+    props.handleDeleteLabTest(event);
+  }
+
   return (
     <Row>
       <Col>
@@ -30,13 +35,15 @@ const ShowLabTest = (props) => {
                 </tr>
               </thead>
               <tbody>
-                {labTests.map((labTest, index) => (
-                  <tr key={index}>
-                    <td>{labTest.testId}</td>
-                    <td>{labTest.test.testName}</td>
-                    <td>{labTest.test.testResult}</td>
-                  </tr>
-                ))}
+                {labTests &&
+                  labTests.map((labTest, index) => (
+                    <tr key={index}>
+                      <td>{labTest.testId}</td>
+                      <td>{labTest.testName}</td>
+                      <td>{labTest.testResult}</td>
+                      <td onClick={handleDeleteLabTest}>Delete Test</td>
+                    </tr>
+                  ))}
               </tbody>
             </Table>
           </div>

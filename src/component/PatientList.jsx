@@ -5,12 +5,9 @@ import firebase from "../firebase";
 import { Link } from "react-router-dom";
 const db = firebase.firestore();
 
-const PatientsList = ({handleVerifyClick,path,patients}) => {
+const PatientsList = ({ handleVerifyClick, path, patients }) => {
+  console.log(patients);
 
-console.log(patients)
-  
-
- 
   return (
     <Container>
       <Row>
@@ -32,8 +29,12 @@ console.log(patients)
                   <td>{index + 1}</td>
                   <td>
                     <Link
-                      to="/patient"
-                      state={{ category: path, id: patient.id, data:patient.data }}
+                      to={patient.data.authorized ? "/patient" : "#"}
+                      state={{
+                        category: path,
+                        id: patient.id,
+                        data: patient.data,
+                      }}
                     >
                       {patient.data.firstName}
                     </Link>

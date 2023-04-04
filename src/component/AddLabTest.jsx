@@ -1,15 +1,15 @@
 import React from "react";
 import { Button, Form } from "react-bootstrap";
 const AddLabTest = (props) => {
-  const handleAddLabTest = (event) => {
+  const onSubmitLabTest = (event) => {
     event.preventDefault();
-    props.handleAddLabTest(event);
+    props.onSubmit(event);
   };
 
   return (
     <div>
       <h3>Add Lab Test</h3>
-      <Form onSubmit={handleAddLabTest}>
+      <Form onSubmit={onSubmitLabTest}>
         <Form.Group controlId="formTestId">
           <Form.Label>Test ID</Form.Label>
           <Form.Control type="text" name="testId" />
