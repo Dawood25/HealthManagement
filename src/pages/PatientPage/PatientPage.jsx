@@ -3,106 +3,136 @@ import { Row, Col, Container } from "react-bootstrap";
 import ShowPrescription from "../../component/ShowPrescription";
 import ShowLabTest from "../../component/ShowLabTest";
 import AddLabTest from "../../component/AddLabTest";
-import AddItemsComponet from "../../component/AddItemComponet";
 import { useLocation } from "react-router-dom";
 import firebase from "../../firebase";
+import AddPrescription from "../../component/AddPrescription";
+import { FaPrescription, FaFlask } from "react-icons/fa";
+
 
 function PatientPage(props) {
   const db = firebase.firestore();
   console.log("Patient Page");
+
+  // Use object destructuring to simplify state variables
   const [showPrescriptions, setShowPrescriptions] = useState(false);
   const [showLabTests, setShowLabTests] = useState(false);
   const [isLoggedIn, setIsLoggedIn] = useState(true);
-  const { id, category, data } = useLocation().state;
 
-  const isDoctor = category == null ? false : category.includes("Doctor");
-  const isStaff = category == null ? false : category.includes("Staff");
-  const isPatient = category == null ? false : category.includes("patient");
-  console.log(data);
+  // Use object destructuring and default values to simplify data retrieval
+  const { id, category, data = { prescribtion: [], labTest: [] } } = useLocation().state;
+
+  // Use ternary operator to simplify variable assignments
+  const isDoctor = category?.includes("Doctor") || false;
+  const isStaff = category?.includes("Staff") || false;
+  const isPatient = category?.includes("patient") || false;
+
+  // Use object destructuring to simplify state variables
   const [prescriptions, setPrescriptions] = useState(data.prescribtion);
-  const [labTests, setLabTests] = useState(data.labTest || []);
+  const [labTests, setLabTests] = useState(data.labTest);
+
+
 
   const handleShowPrescriptions = () => {
-    setShowPrescriptions(!showPrescriptions);
+    setShowPrescriptions((prevState) => !prevState);
   };
 
   const handleShowLabTests = () => {
-    setShowLabTests(!showLabTests);
+    setShowLabTests((prevState) => !prevState);
   };
 
   const handleAddPrescription = (prescribtion) => {
     console.log("handleAddPrescrtpio");
     console.log(prescribtion);
-    setPrescriptions([...prescribtion]);
-
-    console.log(prescriptions);
+    setPrescriptions((prevState) => [...prevState, ...prescribtion]);
   };
 
-  const onSubmitPrescribtion = () => {
+  const onSubmitPrescription = (event) => {
+    event.preventDefault();
     console.log("onSubmitPrescribtion");
+
+    // Use object destructuring to simplify variable assignments
+    const [date, doctorName, prescription, suggestTest, note] = event.target.elements;
+    const updatedPresc =        [...prescriptions,
+      {
+        date: date.value,
+        doctorName: doctorName.value,
+        prescription: prescription.value,
+        suggestTest: suggestTest.value,
+        note: note.value,
+      },
+  
+
+    ]  
     db.collection("Patient")
       .doc(id)
       .update({
-        prescribtion: prescriptions,
+        prescribtion: updatedPresc
       })
       .then(() => {
         console.log("Prescription updated successfully");
+        setPrescriptions(updatedPresc)
       })
       .catch((error) => {
-        console.log("Error updating prescription: ", error);
+        console.log("Error updating Prescription: ", error);
       });
+
+    // Clear form inputs after submission
+    event.target.reset();
   };
+
+
+
+
   const onSubmitLabTest = (event) => {
-    console.log("onSubmitLabTest " + labTests);
-    let testId = event.target.elements[0].value;
-    let testName = event.target.elements[1].value;
-    let testResult = event.target.elements[2].value;
+    const testId = event.target.elements[0].value;
+    const testName = event.target.elements[1].value;
+    const testResult = event.target.elements[2].value;
+
+    const updatedLabTests = [
+      ...labTests,
+      { testId, testName, testResult },
+    ];
 
     db.collection("Patient")
       .doc(id)
-      .update({
-        labTest: [
-          ...labTests,
-          { testId: testId, testName: testName, testResult: testResult },
-        ],
-      })
+      .update({ labTest: updatedLabTests })
       .then(() => {
         console.log("Lab Test updated successfully");
-        setLabTests([
-          ...labTests,
-          { testId: testId, testName: testName, testResult: testResult },
-        ]);
+        setLabTests(updatedLabTests);
       })
-      .catch((error) => {
-        console.log("Error updating Lab Test: ", error);
-      });
+      .catch((error) => console.log("Error updating Lab Test:", error));
   };
+
   const handleDeleteLabTest = (event) => {
-    console.log(event);
-    let idToRemove = event.target.parentElement.children[0].textContent;
-    let updatedTests = labTests.filter((test) => test.testId != idToRemove);
+    const idToRemove = event.target.parentElement.children[0].textContent;
+    const updatedTests = labTests.filter((test) => test.testId !== idToRemove);
+
     db.collection("Patient")
       .doc(id)
-      .update({
-        labTest: updatedTests,
-      })
+      .update({ labTest: updatedTests })
       .then(() => {
         console.log("Lab Test updated successfully");
-
         setLabTests(updatedTests);
       })
-      .catch((error) => {
-        console.log("Error updating Lab Test: ", error);
-      });
+      .catch((error) => console.log("Error updating Lab Test:", error));
   };
+
   if (!data.authorized) {
-    return alert("You are not verified Yet, Please Login After 24 hr");
+    return alert("You are not verified yet. Please login after 24 hours.");
   }
   return (
-    <Container>
-      <h3>Number of visits: 4</h3>
+    <Container className="mt-5">
       <Row>
-        <Col lg={6}>
+        <Col>
+          <h3 className="text-center mb-4">Number of Visits: {4}</h3>
+        </Col>
+      </Row>
+      <Row>
+        <Col md={6} className="mb-3 mb-md-0">
+          <div className="d-flex align-items-center">
+            <FaPrescription size={28} className="me-2" />
+            <h4 className="mb-0">Prescriptions</h4>
+          </div>
           <ShowPrescription
             handleShowPrescriptions={handleShowPrescriptions}
             prescriptions={prescriptions}
@@ -111,15 +141,13 @@ function PatientPage(props) {
             setShowPrescriptions={setShowPrescriptions}
             setIsLoggedIn={setIsLoggedIn}
           />
-          {isDoctor && (
-            <AddItemsComponet
-              onSelect={handleAddPrescription}
-              items={prescriptions}
-              onSubmit={onSubmitPrescribtion}
-            />
-          )}
+          {isDoctor && <AddPrescription onSubmit={onSubmitPrescription} />}
         </Col>
-        <Col lg={6}>
+        <Col md={6}>
+          <div className="d-flex align-items-center">
+            <FaFlask size={28} className="me-2" />
+            <h4 className="mb-0">Lab Tests</h4>
+          </div>
           <ShowLabTest
             handleShowLabTests={handleShowLabTests}
             labTests={labTests}
