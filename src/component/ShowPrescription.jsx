@@ -19,18 +19,27 @@ const ShowPrescription = (props) => {
           {showPrescriptions ? "Hide Prescriptions" : "View Prescriptions"}
         </Button>
         {isLoggedIn && showPrescriptions && (
-          <Table striped bordered hover >
+            <Table striped bordered hover>
             <thead>
               <tr>
-                <th>Medicine</th>
+                <th>Date</th>
+                <th>Doctor Name</th>
+                <th> Prescription</th>
+                <th>Suggested Lab Test </th>
+                <th>Doctor Notes </th>
               </tr>
             </thead>
             <tbody>
-              {prescriptions.map((prescription, index) => (
-                <tr key={index}>
-                  <td>{prescription}</td>
-                </tr>
-              ))}
+              {prescriptions &&
+                prescriptions.map((item, index) => (
+                  <tr key={index}>
+                    <td>{item.date}</td>
+                    <td>{item.doctorName}</td>
+                    <td>{item.prescription}</td>
+                    <td>{item.suggestTest}</td>
+                    <td>{item.note}</td>
+                  </tr>
+                ))}
             </tbody>
           </Table>
         )}
