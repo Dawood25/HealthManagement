@@ -12,7 +12,7 @@ const Login = () => {
   const [loggedIn, setIsLoggedIn] = useState(false);
   const [doctorData, setDoctorData] = useState(null);
   const [userDetails, setUserDetails] = useState({ email: "", password: "" });
-
+  const [isDisabled, setIsDisabled] = useState(true);
   useEffect(() => {
     const fetchDoctorData = async () => {
       console.log("fetch doctor data method called");
@@ -22,6 +22,7 @@ const Login = () => {
         .where("email", "==", userDetails.email)
         .where("password", "==", userDetails.password)
         .get();
+        setIsDisabled(false);
 
       if (!doctorRef.empty) {
         console.log(doctorRef.docs[0].id);
@@ -29,6 +30,7 @@ const Login = () => {
           id: doctorRef.docs[0].id,
           data: doctorRef.docs[0].data(),
         });
+        
       } else {
         setDoctorData(null);
       }
@@ -37,13 +39,16 @@ const Login = () => {
     if (userDetails.email && userDetails.password) {
       fetchDoctorData();
     }
-  }, [userDetails]);
+  }, [userDetails,category]);
 
   const onChangeCategoryHandler = (e) => {
+    setIsDisabled(true);
     setCategory(e.target.text);
   };
 
   const onChangeLoginFormHandler = (event) => {
+    setIsDisabled(true);
+
     let userDetail = {
       email: userDetails.email,
       password: userDetails.password,
@@ -86,6 +91,7 @@ const Login = () => {
                   userDetail={userDetails}
                   onSubmit={onSubmit}
                   onChangeHandler={onChangeLoginFormHandler}
+                  isDisabled={isDisabled}
                 />
               </div>
             </div>

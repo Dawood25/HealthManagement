@@ -4,10 +4,8 @@ import { useState } from "react";
 import { Link } from "react-router-dom";
 
 export const LoginForm = (props) => {
-
-
   return (
-    <form  className="p-3 bg-light shadow border rounded">
+    <form className="p-3 bg-light shadow border rounded">
       <div className="form-group">
         <label htmlFor="email">Email address</label>
         <input
@@ -16,7 +14,9 @@ export const LoginForm = (props) => {
           id="email"
           aria-describedby="emailHelp"
           placeholder="Enter email"
-          onChange={(e)=>{props.onChangeHandler(e)}}
+          onChange={(e) => {
+            props.onChangeHandler(e);
+          }}
           value={props.userDetail.email}
         />
         <small id="emailHelp" className="form-text text-muted">
@@ -30,12 +30,20 @@ export const LoginForm = (props) => {
           className="form-control"
           id="password"
           placeholder="Password"
-          onChange={(e)=>{props.onChangeHandler(e)}}
+          onChange={(e) => {
+            props.onChangeHandler(e);
+          }}
           value={props.userDetail.password}
         />
       </div>
       <div className="d-flex justify-content-between align-items-center">
-        <button  onClick={(e)=>{props.onSubmit(e)}} className="btn btn-primary">
+        <button
+        disabled={props.isDisabled}
+          onClick={(e) => {
+            props.onSubmit(e);
+          }}
+          className="btn btn-primary"
+        >
           Submit
         </button>
         <Link to="/patient_reg" className="text-primary">

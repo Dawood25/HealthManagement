@@ -8,7 +8,6 @@ import firebase from "../../firebase";
 import AddPrescription from "../../component/AddPrescription";
 import { FaPrescription, FaFlask } from "react-icons/fa";
 
-
 function PatientPage(props) {
   const db = firebase.firestore();
   console.log("Patient Page");
@@ -19,7 +18,11 @@ function PatientPage(props) {
   const [isLoggedIn, setIsLoggedIn] = useState(true);
 
   // Use object destructuring and default values to simplify data retrieval
-  const { id, category, data = { prescribtion: [], labTest: [] } } = useLocation().state;
+  const {
+    id,
+    category,
+    data = { prescribtion: [], labTest: [] },
+  } = useLocation().state;
 
   // Use ternary operator to simplify variable assignments
   const isDoctor = category?.includes("Doctor") || false;
@@ -29,8 +32,6 @@ function PatientPage(props) {
   // Use object destructuring to simplify state variables
   const [prescriptions, setPrescriptions] = useState(data.prescribtion);
   const [labTests, setLabTests] = useState(data.labTest);
-
-
 
   const handleShowPrescriptions = () => {
     setShowPrescriptions((prevState) => !prevState);
@@ -51,8 +52,10 @@ function PatientPage(props) {
     console.log("onSubmitPrescribtion");
 
     // Use object destructuring to simplify variable assignments
-    const [date, doctorName, prescription, suggestTest, note] = event.target.elements;
-    const updatedPresc =        [...prescriptions,
+    const [date, doctorName, prescription, suggestTest, note] =
+      event.target.elements;
+    const updatedPresc = [
+      ...prescriptions,
       {
         date: date.value,
         doctorName: doctorName.value,
@@ -60,17 +63,15 @@ function PatientPage(props) {
         suggestTest: suggestTest.value,
         note: note.value,
       },
-  
-
-    ]  
+    ];
     db.collection("Patient")
       .doc(id)
       .update({
-        prescribtion: updatedPresc
+        prescribtion: updatedPresc,
       })
       .then(() => {
         console.log("Prescription updated successfully");
-        setPrescriptions(updatedPresc)
+        setPrescriptions(updatedPresc);
       })
       .catch((error) => {
         console.log("Error updating Prescription: ", error);
@@ -80,18 +81,12 @@ function PatientPage(props) {
     event.target.reset();
   };
 
-
-
-
   const onSubmitLabTest = (event) => {
     const testId = event.target.elements[0].value;
     const testName = event.target.elements[1].value;
     const testResult = event.target.elements[2].value;
 
-    const updatedLabTests = [
-      ...labTests,
-      { testId, testName, testResult },
-    ];
+    const updatedLabTests = [...labTests, { testId, testName, testResult }];
 
     db.collection("Patient")
       .doc(id)
@@ -124,7 +119,14 @@ function PatientPage(props) {
     <Container className="mt-5">
       <Row>
         <Col>
-          <h3 className="text-center mb-4">Number of Visits: {4}</h3>
+          <h3 className="text-center mb-4">
+            Number of Visits:
+            {
+              prescriptions.filter((prescription) => {
+                return prescription.doctorName !== "";
+              }).length
+            }
+          </h3>
         </Col>
       </Row>
       <Row>

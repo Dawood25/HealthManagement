@@ -4,7 +4,7 @@ import { Row, Col, Table, Button } from "react-bootstrap";
 const ShowLabTest = (props) => {
   const labTests = props.labTests;
   const isLoggedIn = props.isLoggedIn;
-  const showLabTests = props.showLabTests;
+  const showLabTests = true;
   const handleShowLabTests = () => {
     props.handleShowLabTests();
   };
@@ -13,17 +13,17 @@ const ShowLabTest = (props) => {
     props.setShowLabTests(flag);
   };
 
-  const handleDeleteLabTest=(event)=>{
+  const handleDeleteLabTest = (event) => {
     event.preventDefault();
     props.handleDeleteLabTest(event);
-  }
+  };
 
   return (
     <Row>
       <Col>
-        <Button onClick={handleShowLabTests}>
+        {/* <Button onClick={handleShowLabTests}>
           {showLabTests ? "Hide Lab Tests" : "View Lab Tests"}
-        </Button>
+        </Button> */}
         {showLabTests && (
           <div>
             <Table striped bordered hover>

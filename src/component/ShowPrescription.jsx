@@ -6,7 +6,7 @@ const ShowPrescription = (props) => {
   console.log("Show Prescipton");
   console.log(props.prescriptions);
   const isLoggedIn = props.isLoggedIn;
-  const showPrescriptions = props.showPrescriptions;
+  const showPrescriptions = true;
 
   const handleShowPrescriptions = () => {
     props.handleShowPrescriptions();
@@ -15,11 +15,11 @@ const ShowPrescription = (props) => {
   return (
     <Row>
       <Col>
-        <Button onClick={handleShowPrescriptions}>
+        {/* <Button onClick={handleShowPrescriptions}>
           {showPrescriptions ? "Hide Prescriptions" : "View Prescriptions"}
-        </Button>
+        </Button> */}
         {isLoggedIn && showPrescriptions && (
-            <Table striped bordered hover>
+          <Table striped bordered hover>
             <thead>
               <tr>
                 <th>Date</th>
