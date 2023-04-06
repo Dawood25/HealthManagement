@@ -9,7 +9,6 @@ import { useNavigate } from "react-router-dom";
 const Login = () => {
   const navigate = useNavigate();
   const [category, setCategory] = useState("Patient");
-  const [loggedIn, setIsLoggedIn] = useState(false);
   const [doctorData, setDoctorData] = useState(null);
   const [userDetails, setUserDetails] = useState({ email: "", password: "" });
   const [isDisabled, setIsDisabled] = useState(true);
@@ -54,7 +53,7 @@ const Login = () => {
       password: userDetails.password,
     };
 
-    if (event.target.type == "email") {
+    if (event.target.type === "email") {
       userDetail.email = event.target.value;
     } else {
       userDetail.password = event.target.value;

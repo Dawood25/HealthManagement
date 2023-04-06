@@ -2,7 +2,6 @@ import React from "react";
 import { useState } from "react";
 
 export const Category = (props) => {
-  const user = props.user;
   const [category, setCategory] = useState("");
   const onClickHandler = (event) => {
     event.preventDefault();
@@ -20,16 +19,16 @@ export const Category = (props) => {
         aria-haspopup="true"
         aria-expanded="false"
       >
-        {category == "" ? "Patient" : category}
+        {category === "" ? "Patient" : category}
       </button>
       <div className="dropdown-menu" aria-labelledby="dropdownMenuButton">
-        <a className="dropdown-item" href="#" onClick={onClickHandler}>
+        <a className="dropdown-item" href="/#" onClick={onClickHandler}>
           Doctor
         </a>
-        <a className="dropdown-item" href="#" onClick={onClickHandler}>
+        <a className="dropdown-item" href="/#" onClick={onClickHandler}>
           Patient
         </a>
-        <a className="dropdown-item" href="#" onClick={onClickHandler}>
+        <a className="dropdown-item" href="/#" onClick={onClickHandler}>
           Staff
         </a>
       </div>
