@@ -1,5 +1,5 @@
 import React from "react";
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 
 const ShowPrescription = (props) => {
   const prescriptions = props.prescriptions;
@@ -8,9 +8,6 @@ const ShowPrescription = (props) => {
   const isLoggedIn = props.isLoggedIn;
   const showPrescriptions = true;
 
-  const handleShowPrescriptions = () => {
-    props.handleShowPrescriptions();
-  };
 
   return (
     <Row>

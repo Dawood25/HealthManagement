@@ -27,7 +27,6 @@ function PatientPage(props) {
   // Use ternary operator to simplify variable assignments
   const isDoctor = category?.includes("Doctor") || false;
   const isStaff = category?.includes("Staff") || false;
-  const isPatient = category?.includes("patient") || false;
 
   // Use object destructuring to simplify state variables
   const [prescriptions, setPrescriptions] = useState(data.prescribtion);
@@ -40,12 +39,13 @@ function PatientPage(props) {
   const handleShowLabTests = () => {
     setShowLabTests((prevState) => !prevState);
   };
-
+/*
   const handleAddPrescription = (prescribtion) => {
     console.log("handleAddPrescrtpio");
     console.log(prescribtion);
     setPrescriptions((prevState) => [...prevState, ...prescribtion]);
   };
+  */
 
   const onSubmitPrescription = (event) => {
     event.preventDefault();

@@ -7,8 +7,8 @@ export const Navbar = () => {
     <BootstrapNavbar
       collapseOnSelect
       expand="lg"
-      bg="light"
-      variant="light"
+      bg="success"
+      variant="dark"
       className="navbar p-2 border shadow"
     >
       <BootstrapNavbar.Brand href="/">

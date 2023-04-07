@@ -1,12 +1,12 @@
 import React,{useEffect,useState} from "react";
 import PatientsList from "../../component/PatientList";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
+import { useLocation } from "react-router-dom";
 import firebase from "../../firebase";
 
 
 const DoctorPage = (props) => {
   const db = firebase.firestore();
-  const { id, category, data } = useLocation().state;
+  const { id, category } = useLocation().state;
   console.log("id and category is " + id + " " + category);
   const [patients, setPatients] = useState([]);
   const handleVerifyClick = (patient) => {
@@ -39,7 +39,7 @@ const DoctorPage = (props) => {
       setPatients(patientsData);
     });
     return () => unsubscribe();
-  }, []);
+  }, [db]);
 
  
 

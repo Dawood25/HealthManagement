@@ -1,17 +1,10 @@
 import React from "react";
-import { Row, Col, Table, Button } from "react-bootstrap";
+import { Row, Col, Table } from "react-bootstrap";
 
 const ShowLabTest = (props) => {
   const labTests = props.labTests;
-  const isLoggedIn = props.isLoggedIn;
   const showLabTests = true;
-  const handleShowLabTests = () => {
-    props.handleShowLabTests();
-  };
 
-  const setShowLabTests = (flag) => {
-    props.setShowLabTests(flag);
-  };
 
   const handleDeleteLabTest = (event) => {
     event.preventDefault();

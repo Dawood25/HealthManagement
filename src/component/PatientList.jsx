@@ -1,9 +1,7 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import { Container, Row, Col, Table, Button } from "react-bootstrap";
-import { useLocation, useNavigate, useParams } from "react-router-dom";
-import firebase from "../firebase";
+
 import { Link } from "react-router-dom";
-const db = firebase.firestore();
 
 const PatientsList = ({ handleVerifyClick, path, patients }) => {
   console.log(patients);
