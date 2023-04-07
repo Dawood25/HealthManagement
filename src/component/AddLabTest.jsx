@@ -22,7 +22,7 @@ const AddLabTest = (props) => {
           <Form.Label>Test Result</Form.Label>
           <Form.Control type="text" name="testResult" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button  className="m-2 p-1"  variant="success"  type="submit">
           Add Lab Test
         </Button>
       </Form>

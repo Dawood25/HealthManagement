@@ -7,8 +7,8 @@ const AddPrescription = (props) => {
   };
 
   return (
-    <div>
-      <h3>Add Lab Test</h3>
+    <div className="m-3 p-2">
+      <h3>Add Prescription</h3>
       <Form onSubmit={onSubmitLabTest}>
       <Form.Group controlId="formTestId">
           <Form.Label>Date</Form.Label>
@@ -30,7 +30,7 @@ const AddPrescription = (props) => {
           <Form.Label>Doctor Note</Form.Label>
           <Form.Control type="area" name="doctorNote" />
         </Form.Group>
-        <Button variant="primary" type="submit">
+        <Button className="m-2 p-1"  variant="success" type="submit">
           Add Prescription 
         </Button>
       </Form>

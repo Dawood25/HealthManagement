@@ -25,17 +25,17 @@ export const Staff = (props) => {
           patientRef.update({
             authorized: !currentAuthorizedValue,
           });
-          /*
-          if(currentAuthorizedValue) 
-            emailjs.send("SERVICE ID", 
-            "TEMPLATEID", {user_email:doc.data().email}, "ONEMOREID-")
+        
+          if(!currentAuthorizedValue) 
+            emailjs.send("service_aniucmy", 
+            "template_coa3u6n", {user_email:doc.data().email}, "OlPP9vz--g-QVrLqf")
         .then(result => {
           alert('Your message has been sent successfully.');
-          e.target.reset();
+          
         }, error => {
           console.log(error.text);
           alert('Sorry, something went wrong. Please try again later.');
-        });*/
+        });
         } else {
           console.log("Patient document does not exist");
         }

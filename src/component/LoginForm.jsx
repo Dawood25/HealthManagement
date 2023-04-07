@@ -38,11 +38,12 @@ export const LoginForm = (props) => {
       </div>
       <div className="d-flex justify-content-between align-items-center">
         <button
+        
         disabled={props.isDisabled}
           onClick={(e) => {
             props.onSubmit(e);
           }}
-          className="btn btn-primary"
+          className="btn btn-primary  btn-success"
         >
           Submit
         </button>
