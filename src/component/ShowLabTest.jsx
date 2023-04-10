@@ -5,7 +5,6 @@ const ShowLabTest = (props) => {
   const labTests = props.labTests;
   const showLabTests = true;
 
-
   const handleDeleteLabTest = (event) => {
     event.preventDefault();
     props.handleDeleteLabTest(event);
@@ -25,6 +24,8 @@ const ShowLabTest = (props) => {
                   <th>Test ID</th>
                   <th>Test Name</th>
                   <th>Test Result</th>
+                  <th>Test Date</th>
+                  <th>Normal Range</th>
                 </tr>
               </thead>
               <tbody>
@@ -34,6 +35,8 @@ const ShowLabTest = (props) => {
                       <td>{labTest.testId}</td>
                       <td>{labTest.testName}</td>
                       <td>{labTest.testResult}</td>
+                      <td>{labTest.testDate}</td>
+                      <td>{labTest.normalRange}</td>
                       <td onClick={handleDeleteLabTest}>Delete Test</td>
                     </tr>
                   ))}

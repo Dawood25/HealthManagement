@@ -44,6 +44,7 @@ const PatientRegistrationForm = () => {
       doctorID:null,
     })
       .then(() => {
+        alert("Please login after 24 hr");
         console.log('Patient added successfully!');
        
         

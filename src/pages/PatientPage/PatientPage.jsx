@@ -39,7 +39,7 @@ function PatientPage(props) {
   const handleShowLabTests = () => {
     setShowLabTests((prevState) => !prevState);
   };
-/*
+  /*
   const handleAddPrescription = (prescribtion) => {
     console.log("handleAddPrescrtpio");
     console.log(prescribtion);
@@ -80,13 +80,28 @@ function PatientPage(props) {
     // Clear form inputs after submission
     event.target.reset();
   };
+  const [fromDate, setFromDate] = useState("");
+  const [toDate, setToDate] = useState("");
+
+  const handleFromDateChange = (event) => {
+    setFromDate(event.target.value);
+  };
+
+  const handleToDateChange = (event) => {
+    setToDate(event.target.value);
+  };
 
   const onSubmitLabTest = (event) => {
     const testId = event.target.elements[0].value;
     const testName = event.target.elements[1].value;
     const testResult = event.target.elements[2].value;
+    const testDate = event.target.elements[3].value;
+    const normalRange = event.target.elements[4].value;
 
-    const updatedLabTests = [...labTests, { testId, testName, testResult }];
+    const updatedLabTests = [
+      ...labTests,
+      { testId, testName, testResult, testDate, normalRange },
+    ];
 
     db.collection("Patient")
       .doc(id)
@@ -129,6 +144,27 @@ function PatientPage(props) {
           </h3>
         </Col>
       </Row>
+      <Row>
+        <Col>
+          <label htmlFor="from-date">From:</label>
+          <input
+            type="date"
+            id="from-date"
+            value={fromDate}
+            onChange={handleFromDateChange}
+          />
+        </Col>
+        <Col>
+          <label htmlFor="to-date">To:</label>
+          <input
+            type="date"
+            id="to-date"
+            value={toDate}
+            onChange={handleToDateChange}
+          />
+        </Col>
+      </Row>
+
       <Row>
         <Col md={6} className="mb-3 mb-md-0">
           <div className="d-flex align-items-center">

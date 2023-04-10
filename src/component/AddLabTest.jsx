@@ -22,7 +22,15 @@ const AddLabTest = (props) => {
           <Form.Label>Test Result</Form.Label>
           <Form.Control type="text" name="testResult" />
         </Form.Group>
-        <Button  className="m-2 p-1"  variant="success"  type="submit">
+        <Form.Group controlId="formTestDate">
+          <Form.Label>Test Date</Form.Label>
+          <Form.Control type="date" name="testDate" />
+        </Form.Group>
+        <Form.Group controlId="formNormalRange">
+          <Form.Label>Normal Range</Form.Label>
+          <Form.Control type="text" name="normalRange" />
+        </Form.Group>
+        <Button className="m-2 p-1" variant="success" type="submit">
           Add Lab Test
         </Button>
       </Form>
