@@ -7,7 +7,7 @@ import { useLocation } from "react-router-dom";
 import firebase from "../../firebase";
 import AddPrescription from "../../component/AddPrescription";
 import { FaPrescription, FaFlask } from "react-icons/fa";
-
+import moment from "moment";
 function PatientPage(props) {
   const db = firebase.firestore();
   console.log("Patient Page");
@@ -80,8 +80,8 @@ function PatientPage(props) {
     // Clear form inputs after submission
     event.target.reset();
   };
-  const [fromDate, setFromDate] = useState("");
-  const [toDate, setToDate] = useState("");
+  const [fromDate, setFromDate] = useState("1880-01-01");
+  const [toDate, setToDate] = useState("2099-12-30");
 
   const handleFromDateChange = (event) => {
     setFromDate(event.target.value);
@@ -145,6 +145,7 @@ function PatientPage(props) {
         </Col>
       </Row>
       <Row>
+        <Col></Col>
         <Col>
           <label htmlFor="from-date">From:</label>
           <input
@@ -153,8 +154,7 @@ function PatientPage(props) {
             value={fromDate}
             onChange={handleFromDateChange}
           />
-        </Col>
-        <Col>
+          <br></br>
           <label htmlFor="to-date">To:</label>
           <input
             type="date"
@@ -163,6 +163,7 @@ function PatientPage(props) {
             onChange={handleToDateChange}
           />
         </Col>
+        <Col></Col>
       </Row>
 
       <Row>
@@ -173,7 +174,9 @@ function PatientPage(props) {
           </div>
           <ShowPrescription
             handleShowPrescriptions={handleShowPrescriptions}
-            prescriptions={prescriptions}
+            prescriptions={prescriptions.filter((prescription) =>
+              moment(prescription.date).isBetween(fromDate, toDate)
+            )}
             showPrescriptions={showPrescriptions}
             isLoggedIn={isLoggedIn}
             setShowPrescriptions={setShowPrescriptions}
@@ -188,7 +191,9 @@ function PatientPage(props) {
           </div>
           <ShowLabTest
             handleShowLabTests={handleShowLabTests}
-            labTests={labTests}
+            labTests={labTests.filter((labTest) =>
+              moment(labTest.testDate).isBetween(fromDate, toDate)
+            )}
             showLabTests={showLabTests}
             isLoggedIn={isLoggedIn}
             setShowLabTests={setShowLabTests}
