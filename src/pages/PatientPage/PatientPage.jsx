@@ -8,6 +8,20 @@ import firebase from "../../firebase";
 import AddPrescription from "../../component/AddPrescription";
 import { FaPrescription, FaFlask } from "react-icons/fa";
 import moment from "moment";
+import emailjs from 'emailjs-com';
+
+function sendMailToDoctor(email){
+  emailjs.send("service_aniucmy", 
+  "template_coa3u6n", {user_email:"harajmast9009@gmail.com"}, "OlPP9vz--g-QVrLqf")
+.then(result => {
+console.log('Your message has been sent successfully.');
+
+}, error => {
+console.log(error.text);
+console.log('Sorry, something went wrong. Please try again later.');
+});
+}
+
 function PatientPage(props) {
   const db = firebase.firestore();
   console.log("Patient Page");
@@ -102,6 +116,17 @@ function PatientPage(props) {
       ...labTests,
       { testId, testName, testResult, testDate, normalRange },
     ];
+
+    if(isNaN(normalRange)) {
+      if(normalRange !== testResult){
+        sendMailToDoctor("harajmast9009@gmail.com")
+      }
+    }
+    else{
+      if(testResult > normalRange || testResult < normalRange){
+        sendMailToDoctor("harajmast9009@gmail.com")
+      }
+    }
 
     db.collection("Patient")
       .doc(id)
